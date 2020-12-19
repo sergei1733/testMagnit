@@ -1,0 +1,4 @@
+db.url=jdbc:postgresql://localhost:5432/magnit
+db.login=postgres1
+db.password=123
+db.limit=5
