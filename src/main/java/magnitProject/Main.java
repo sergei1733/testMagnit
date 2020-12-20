@@ -7,13 +7,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Main {
-
+    private static Logger log = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) throws Exception {
 
         Dao dao = new Dao();
-        dao.setData(1000);              //заполнение таблицы бд
+        dao.setData(10);              //заполнение таблицы бд
 
         CreateDocument crDoc = new CreateDocument();
 
@@ -22,18 +23,19 @@ public class Main {
 
             Element entries = crDoc.createXMLHead(doc);  //заполнение шапки документа
 
-            List<Long> list = dao.getData(doc, entries);   //получение записей из таблицы
+            List<Long> list = dao.getData();   //получение записей из таблицы
 
             for (Long field : list) {
                 crDoc.fillingOutTheDocument(doc, entries, field);   //заполнение тела xml документа
             }
             crDoc.saveDoc(doc);
-            crDoc.saveTransformerDoc(doc);
+            crDoc.saveTransformerDoc();
             ReadingXMLDocument read = new ReadingXMLDocument();
             read.parseXML();
 
         }catch (Exception e){
-            throw new Exception();
+            log.info( "Program execution error!");
+            throw e;
         }
 
 

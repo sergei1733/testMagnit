@@ -1,17 +1,16 @@
 package magnitProject.dao;
 
 import magnitProject.config.Config;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Dao {
     private static final String SET_INSERT = "INSERT INTO test (field) VALUES (?)";
     private static final String DELETE_DATA = "TRUNCATE TABLE test";
     private static final String GET_DATA = "SELECT * FROM test";
+    private static Logger log = Logger.getLogger(Dao.class.getName());
 
     private Connection getConnection() throws SQLException {
 
@@ -24,22 +23,23 @@ public class Dao {
 
     }
 
-    public void setData(Integer kolvo) throws Exception {
+    public void setData(Integer numberRecords) throws Exception {
         try (Connection con = getConnection();
              PreparedStatement stmt1 = con.prepareStatement(DELETE_DATA);
              PreparedStatement stmt = con.prepareStatement(SET_INSERT)) {
 
             stmt1.executeUpdate();
-            for (int i = 1; i <= kolvo; i++) {
+            for (int i = 1; i <= numberRecords; i++) {
                 stmt.setInt(1, i);
                 stmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            throw new Exception(ex);
+            log.info("Error writing data from database");
+            throw ex;
         }
     }
 
-    public List getData(Document doc, Element entries) throws Exception {
+    public List getData() throws Exception {
         Long field;
         List<Long> list = new ArrayList<>();
 
@@ -52,7 +52,8 @@ public class Dao {
                 System.out.println(field);
             }
         } catch (SQLException ex) {
-            throw new Exception(ex);
+            log.info("Error getting data from database");
+            throw ex;
         }
         return list;
     }

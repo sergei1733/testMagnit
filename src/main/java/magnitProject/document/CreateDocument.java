@@ -9,9 +9,10 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
+import java.util.logging.Logger;
 
 public class CreateDocument {
-
+    private static Logger log = Logger.getLogger(CreateDocument.class.getName());
     public CreateDocument() {
     }
 
@@ -22,7 +23,8 @@ public class CreateDocument {
             Document doc = factory.newDocumentBuilder().newDocument();
             return doc;
         }catch (ParserConfigurationException e){
-            throw new ParserConfigurationException();
+            log.info( "Exception");
+            throw e;
         }
     }
 
@@ -44,11 +46,12 @@ public class CreateDocument {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(new DOMSource(doc), new StreamResult(file));
         }catch (Exception e){
-            throw new Exception(e);
+            log.info( "Failed to save document ");
+            throw e;
         }
     }
 
-    public void saveTransformerDoc(Document doc) throws TransformerException {
+    public void saveTransformerDoc() throws TransformerException {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
             Source xslt = new StreamSource(new File("src/main/resources/style.xsl"));
@@ -56,7 +59,8 @@ public class CreateDocument {
             Source xml = new StreamSource(new File("src/main/resources/1.xml"));
             transformer.transform(xml, new StreamResult(new File("src/main/resources/2.xml")));
         } catch (TransformerException exception){
-            throw new TransformerException(exception);
+            log.info("Failed to complete changes");
+            throw exception;
         }
 
     }

@@ -12,11 +12,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ReadingXMLDocument {
-
+    private static Logger log = Logger.getLogger(ReadingXMLDocument.class.getName());
     public ReadingXMLDocument() {
     }
 
@@ -42,11 +43,14 @@ public class ReadingXMLDocument {
                 }
             }
         }catch (ParserConfigurationException e ){
-            throw new ParserConfigurationException();
+            log.info("Could not parse the document: ");
+            throw e;
         }catch (IOException e){
-            throw new IOException(e);
+            log.info("File read error");
+            throw e;
         }catch (SAXException e){
-            throw new SAXException(e);
+            log.info("Error in the document");
+            throw e;
         }
         System.out.println(summa);
     }
