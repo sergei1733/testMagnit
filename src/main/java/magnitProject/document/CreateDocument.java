@@ -1,4 +1,4 @@
-package magnitProject;
+package magnitProject.document;
 
 import org.w3c.dom.*;
 
@@ -22,28 +22,19 @@ public class CreateDocument {
         return doc;
     }
 
-    public Element createXMLHead(Document doc) throws Exception {
+    public Element createXMLHead(Document doc){
 
         Element test = doc.createElement("TEST");
         test.setAttribute("xmlns", "");
         doc.appendChild(test);
         Element entries = doc.createElement("entries");
         test.appendChild(entries);
-/*
-        FillingOutTheDocument(doc, entries);
-
-        File file = new File("/home/h/IdeaProjects/testTaskMagnit/test.xml");
-
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.transform(new DOMSource(doc), new StreamResult(file));
-
- */
         return entries;
+
     }
 
     public void saveDoc(Document doc) throws Exception {
-        File file = new File("1.xml");
+        File file = new File("src/main/resources/1.xml");
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.transform(new DOMSource(doc), new StreamResult(file));
@@ -52,14 +43,14 @@ public class CreateDocument {
     public void saveTransformerDoc(Document doc) throws TransformerException {
 
         TransformerFactory factory = TransformerFactory.newInstance();
-        Source xslt = new StreamSource(new File("style.xsl"));
+        Source xslt = new StreamSource(new File("src/main/resources/style.xsl"));
         Transformer transformer = factory.newTransformer(xslt);
-        Source xml = new StreamSource(new File("1.xml"));
-        transformer.transform(xml, new StreamResult(new File("2.xml")));
+        Source xml = new StreamSource(new File("src/main/resources/1.xml"));
+        transformer.transform(xml, new StreamResult(new File("src/main/resources/2.xml")));
 
     }
 
-    public void FillingOutTheDocument(Document doc, Element entries, Long nomer) {
+    public void fillingOutTheDocument(Document doc, Element entries, Long nomer) {
         Element entry = doc.createElement("entry");
         entries.appendChild(entry);
 

@@ -1,5 +1,6 @@
-package magnitProject;
+package magnitProject.dao;
 
+import magnitProject.Config.Config;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

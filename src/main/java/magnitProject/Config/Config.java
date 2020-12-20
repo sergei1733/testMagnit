@@ -1,4 +1,4 @@
-package magnitProject;
+package magnitProject.Config;
 
 import java.io.InputStream;
 import java.util.Properties;

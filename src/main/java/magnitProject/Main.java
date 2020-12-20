@@ -1,5 +1,8 @@
 package magnitProject;
 
+import magnitProject.dao.Dao;
+import magnitProject.document.CreateDocument;
+import magnitProject.document.ReadingXMLDocument;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -13,22 +16,26 @@ public class Main {
         dao.setData(1000);              //заполнение таблицы бд
 
         CreateDocument crDoc = new CreateDocument();
-        Document doc = crDoc.createDoc();            //создание документа
-        Element entries = crDoc.createXMLHead(doc);  //заполнение шапки документа
 
+        try {
+            Document doc = crDoc.createDoc();            //создание документа
 
-        List<Long> list = dao.getData(doc, entries);   //получение записей из таблицы
+            Element entries = crDoc.createXMLHead(doc);  //заполнение шапки документа
 
-        for (Long field : list) {
-            crDoc.FillingOutTheDocument(doc, entries, field);   //заполнение тела xml документа
+            List<Long> list = dao.getData(doc, entries);   //получение записей из таблицы
+
+            for (Long field : list) {
+                crDoc.fillingOutTheDocument(doc, entries, field);   //заполнение тела xml документа
+            }
+            crDoc.saveDoc(doc);
+            crDoc.saveTransformerDoc(doc);
+            ReadingXMLDocument read = new ReadingXMLDocument();
+            read.parseXML();
+
+        }catch (Exception e){
+            throw new Exception();
         }
 
-
-        crDoc.saveDoc(doc);
-        crDoc.saveTransformerDoc(doc);
-
-        ReadingXMLDocument read = new ReadingXMLDocument();
-        read.parseXML();
 
     }
 
