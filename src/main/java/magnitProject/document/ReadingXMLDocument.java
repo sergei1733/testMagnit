@@ -24,6 +24,7 @@ public class ReadingXMLDocument {
         long summa = 0;
         List<String> list = new ArrayList<>();
         try {
+
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(new File("src/main/resources/2.xml"));
