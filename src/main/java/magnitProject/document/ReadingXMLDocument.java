@@ -20,6 +20,7 @@ public class ReadingXMLDocument {
     public ReadingXMLDocument() {
     }
 
+
     public void parseXML() throws ParserConfigurationException, IOException, SAXException {
         long summa = 0;
 
