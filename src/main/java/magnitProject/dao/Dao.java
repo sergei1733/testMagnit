@@ -1,6 +1,7 @@
 package magnitProject.dao;
 
 import magnitProject.config.Config;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

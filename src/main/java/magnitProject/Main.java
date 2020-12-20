@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 public class Main {
     private static Logger log = Logger.getLogger(Main.class.getName());
+
     public static void main(String[] args) throws Exception {
 
         Dao dao = new Dao();
@@ -33,8 +34,8 @@ public class Main {
             ReadingXMLDocument read = new ReadingXMLDocument();
             read.parseXML();
 
-        }catch (Exception e){
-            log.info( "Program execution error!");
+        } catch (Exception e) {
+            log.info("Program execution error!");
             throw e;
         }
 

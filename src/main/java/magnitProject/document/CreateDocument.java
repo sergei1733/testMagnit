@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 public class CreateDocument {
     private static Logger log = Logger.getLogger(CreateDocument.class.getName());
+
     public CreateDocument() {
     }
 
@@ -22,13 +23,13 @@ public class CreateDocument {
             factory.setNamespaceAware(true);
             Document doc = factory.newDocumentBuilder().newDocument();
             return doc;
-        }catch (ParserConfigurationException e){
-            log.info( "Exception");
+        } catch (ParserConfigurationException e) {
+            log.info("Exception");
             throw e;
         }
     }
 
-    public Element createXMLHead(Document doc){
+    public Element createXMLHead(Document doc) {
 
         Element test = doc.createElement("TEST");
         test.setAttribute("xmlns", "");
@@ -45,8 +46,8 @@ public class CreateDocument {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(new DOMSource(doc), new StreamResult(file));
-        }catch (Exception e){
-            log.info( "Failed to save document ");
+        } catch (Exception e) {
+            log.info("Failed to save document ");
             throw e;
         }
     }
@@ -58,7 +59,7 @@ public class CreateDocument {
             Transformer transformer = factory.newTransformer(xslt);
             Source xml = new StreamSource(new File("src/main/resources/1.xml"));
             transformer.transform(xml, new StreamResult(new File("src/main/resources/2.xml")));
-        } catch (TransformerException exception){
+        } catch (TransformerException exception) {
             log.info("Failed to complete changes");
             throw exception;
         }

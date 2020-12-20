@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 public class ReadingXMLDocument {
     private static Logger log = Logger.getLogger(ReadingXMLDocument.class.getName());
+
     public ReadingXMLDocument() {
     }
 
@@ -42,13 +43,13 @@ public class ReadingXMLDocument {
                     summa = summa + Integer.parseInt(matcher.group());
                 }
             }
-        }catch (ParserConfigurationException e ){
+        } catch (ParserConfigurationException e) {
             log.info("Could not parse the document: ");
             throw e;
-        }catch (IOException e){
+        } catch (IOException e) {
             log.info("File read error");
             throw e;
-        }catch (SAXException e){
+        } catch (SAXException e) {
             log.info("Error in the document");
             throw e;
         }
