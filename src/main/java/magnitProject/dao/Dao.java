@@ -24,7 +24,7 @@ public class Dao {
 
     }
 
-    public void setData(Integer numberRecords) throws Exception {
+    public void setData(Long numberRecords) throws Exception {
         try (Connection con = getConnection();
              PreparedStatement stmt1 = con.prepareStatement(DELETE_DATA);
              PreparedStatement stmt = con.prepareStatement(SET_INSERT)) {
@@ -50,7 +50,7 @@ public class Dao {
             while (rs.next()) {
                 field = rs.getLong("field");
                 list.add(field);
-                System.out.println(field);
+                    //System.out.println(field);
             }
         } catch (SQLException ex) {
             log.info("Error getting data from database");

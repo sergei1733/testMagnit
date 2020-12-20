@@ -7,15 +7,20 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class Main {
     private static Logger log = Logger.getLogger(Main.class.getName());
-
+    public static Scanner in = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
+        Long numberRecords;
+
+        System.out.print("Enter the number of records ");
+        numberRecords = in.nextLong();
 
         Dao dao = new Dao();
-        dao.setData(10);              //заполнение таблицы бд
+        dao.setData(numberRecords);              //заполнение таблицы бд
 
         CreateDocument crDoc = new CreateDocument();
 
