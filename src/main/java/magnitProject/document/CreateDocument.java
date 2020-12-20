@@ -16,10 +16,14 @@ public class CreateDocument {
     }
 
     public Document createDoc() throws ParserConfigurationException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        Document doc = factory.newDocumentBuilder().newDocument();
-        return doc;
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(true);
+            Document doc = factory.newDocumentBuilder().newDocument();
+            return doc;
+        }catch (ParserConfigurationException e){
+            throw new ParserConfigurationException();
+        }
     }
 
     public Element createXMLHead(Document doc){
@@ -34,28 +38,35 @@ public class CreateDocument {
     }
 
     public void saveDoc(Document doc) throws Exception {
-        File file = new File("src/main/resources/1.xml");
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.transform(new DOMSource(doc), new StreamResult(file));
+        try {
+            File file = new File("src/main/resources/1.xml");
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.transform(new DOMSource(doc), new StreamResult(file));
+        }catch (Exception e){
+            throw new Exception(e);
+        }
     }
 
     public void saveTransformerDoc(Document doc) throws TransformerException {
-
-        TransformerFactory factory = TransformerFactory.newInstance();
-        Source xslt = new StreamSource(new File("src/main/resources/style.xsl"));
-        Transformer transformer = factory.newTransformer(xslt);
-        Source xml = new StreamSource(new File("src/main/resources/1.xml"));
-        transformer.transform(xml, new StreamResult(new File("src/main/resources/2.xml")));
+        try {
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Source xslt = new StreamSource(new File("src/main/resources/style.xsl"));
+            Transformer transformer = factory.newTransformer(xslt);
+            Source xml = new StreamSource(new File("src/main/resources/1.xml"));
+            transformer.transform(xml, new StreamResult(new File("src/main/resources/2.xml")));
+        } catch (TransformerException exception){
+            throw new TransformerException(exception);
+        }
 
     }
 
-    public void fillingOutTheDocument(Document doc, Element entries, Long nomer) {
+    public void fillingOutTheDocument(Document doc, Element entries, Long number) {
         Element entry = doc.createElement("entry");
         entries.appendChild(entry);
 
         Element field = doc.createElement("field");
-        field.appendChild(doc.createTextNode("значение поля " + nomer));
+        field.appendChild(doc.createTextNode("значение поля " + number));
         entry.appendChild(field);
     }
 
