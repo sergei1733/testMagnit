@@ -22,7 +22,6 @@ public class ReadingXMLDocument {
 
     public void parseXML() throws ParserConfigurationException, IOException, SAXException {
         long summa = 0;
-
         List<String> list = new ArrayList<>();
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
